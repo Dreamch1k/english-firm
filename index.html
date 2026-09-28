@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The English Firm</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,900&family=Special+Elite&display=swap">
+<style>
+:root{--bg:#efe6d2;--panel:#e4d8bc;--ink:#12291f;--green:#12291f;--brass:#8a6a1c;--blood:#7a2222;--line:#12291f;--onGreen:#efe6d2;--brassOnGreen:#d2ad55;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1c15;--panel:#15291f;--ink:#efe6d2;--brass:#d2ad55;--blood:#c9635a;--line:#d2ad55}}
+:root[data-theme="dark"]{--bg:#0d1c15;--panel:#15291f;--ink:#efe6d2;--brass:#d2ad55;--blood:#c9635a;--line:#d2ad55}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 "Special Elite","Courier New",monospace}
+main{max-width:720px;margin:0 auto;padding:0 16px 48px}
+.card{background:var(--green);color:var(--onGreen);margin:16px 0 0;padding:36px 22px 30px;border:3px solid var(--brassOnGreen);outline:1px solid var(--brassOnGreen);outline-offset:-10px;text-align:center}
+.card h1{font:900 clamp(38px,11vw,68px)/.95 "Playfair Display",Georgia,serif;margin:0;letter-spacing:-.01em}
+.card p{margin:14px 0 0;color:var(--brassOnGreen);font-size:16px}
+.tweed{height:22px;margin:0;background:conic-gradient(#12291f 25%,#d2ad55 0 50%,#12291f 0 75%,#efe6d2 0) 0 0/22px 22px;border:3px solid var(--brassOnGreen);border-top:0}
+nav{display:flex;gap:0;margin:26px 0 20px;border:2px solid var(--line)}
+nav button{flex:1;font:inherit;padding:12px 8px;background:transparent;color:var(--ink);border:0;cursor:pointer}
+nav button+button{border-left:2px solid var(--line)}
+nav button[aria-selected="true"]{background:var(--green);color:var(--brassOnGreen)}
+:root[data-theme="dark"] nav button[aria-selected="true"]{background:var(--brass);color:#12291f}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) nav button[aria-selected="true"]{background:var(--brass);color:#12291f}}
+button:focus-visible,input:focus-visible{outline:3px solid var(--blood);outline-offset:2px}
+h2{font:900 italic 30px/1.1 "Playfair Display",Georgia,serif;margin:0 0 6px}
+.hint{margin:0 0 18px;opacity:.85}
+.row{display:grid;gap:10px;margin-bottom:26px}
+input{font:inherit;width:100%;padding:12px;background:var(--panel);color:var(--ink);border:2px solid var(--line);border-radius:0}
+.btn{font:inherit;padding:12px 18px;background:var(--green);color:var(--brassOnGreen);border:2px solid var(--green);cursor:pointer}
+.btn.alt{background:transparent;color:var(--ink);border-color:var(--line)}
+:root[data-theme="dark"] .btn,:root[data-theme="dark"] .btn.alt{border-color:var(--brass)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn{background:var(--brass);color:#12291f;border-color:var(--brass)}:root:not([data-theme="light"]) .btn.alt{background:transparent;color:var(--ink);border-color:var(--brass)}}
+:root[data-theme="dark"] .btn{background:var(--brass);color:#12291f}
+ul{list-style:none;margin:0;padding:0}
+li{display:flex;gap:12px;justify-content:space-between;align-items:flex-start;padding:14px 0;border-top:1px solid var(--line)}
+li b{display:block;font:700 20px/1.25 "Playfair Display",Georgia,serif}
+li span{opacity:.85}
+li button{font:inherit;background:none;border:0;color:var(--blood);cursor:pointer;padding:4px 8px;flex:none}
+.slate{background:var(--green);color:var(--onGreen);padding:28px 20px;border:3px solid var(--brassOnGreen);margin-bottom:16px;text-align:center}
+.slate .q{font:900 italic clamp(26px,7vw,40px)/1.15 "Playfair Display",Georgia,serif}
+.slate small{color:var(--brassOnGreen)}
+.verdict{min-height:52px;margin:14px 0 0;font-size:18px}
+.ok{color:var(--brass);font-weight:700}.no{color:var(--blood);font-weight:700}
+[hidden]{display:none!important}
+:root{--mbg:#12291f;--mfg:#d2ad55}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--mbg:#d2ad55;--mfg:#12291f}}
+:root[data-theme="dark"]{--mbg:#d2ad55;--mfg:#12291f}
+.xp{margin:22px 0 0;border:2px solid var(--line);padding:12px 14px}
+.xp-top{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:baseline}
+.xp-top b{font:900 italic 24px/1.1 "Playfair Display",Georgia,serif}
+.bar{height:16px;border:2px solid var(--line);background:var(--panel);margin-top:8px}
+.bar i{display:block;height:100%;width:0;background:var(--brass);transition:width .5s}
+.levelup{margin:8px 0 0;min-height:1.5em;color:var(--blood);font-weight:700}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center;margin:12px 0 26px}
+.cal div{padding:9px 0;border:1px solid var(--line)}
+.cal .wd{border-color:transparent;opacity:.7}
+.cal .on{background:var(--mbg);color:var(--mfg);border-color:var(--mbg)}
+.cal .now{outline:3px solid var(--blood);outline-offset:1px}
+.ladder li.cur{background:var(--panel)}
+.ladder li.cur b::after{content:" (ты здесь)";font:400 15px "Special Elite","Courier New",monospace;color:var(--blood)}
+.ladder li.lock{opacity:.55}
+</style>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+<main>
+  <header class="card">
+    <h1>The English Firm</h1>
+    <p>Фразы из сериалов, выученные как следует, по-джентльменски.</p>
+  </header>
+  <div class="tweed" aria-hidden="true"></div>
+
+  <div class="xp">
+    <div class="xp-top"><b id="rank">Шестёрка</b><span id="xptext">0 XP</span></div>
+    <div class="bar"><i id="fill"></i></div>
+    <p class="levelup" id="levelup" aria-live="polite"></p>
+  </div>
+
+  <nav role="tablist">
+    <button role="tab" id="t-ledger" aria-selected="true">Книга фраз</button>
+    <button role="tab" id="t-quiz" aria-selected="false">Допрос</button>
+    <button role="tab" id="t-dossier" aria-selected="false">Досье</button>
+  </nav>
+
+  <section id="ledger">
+    <h2>Книга фраз</h2>
+    <p class="hint">Услышал в кадре хорошую фразу? Запиши её сюда.</p>
+    <div class="row">
+      <input id="en" placeholder="Фраза по-английски" autocomplete="off">
+      <input id="ru" placeholder="Перевод" autocomplete="off">
+      <button class="btn" id="add">Записать фразу</button>
+    </div>
+    <ul id="list"></ul>
+  </section>
+
+  <section id="quiz" hidden>
+    <h2>Допрос</h2>
+    <p class="hint">Переведи фразу на русский. Ошибёшься, и мы её ещё вернём.</p>
+    <div class="slate"><small id="streak">Серия: 0</small><div class="q" id="q">Сначала запиши фразы</div></div>
+    <div class="row">
+      <input id="ans" placeholder="Твой перевод" autocomplete="off">
+      <button class="btn" id="check">Ответить</button>
+      <button class="btn alt" id="next">Следующая фраза</button>
+    </div>
+    <p class="verdict" id="verdict" aria-live="polite"></p>
+  </section>
+  <section id="dossier" hidden>
+    <h2>Досье</h2>
+    <p class="hint" id="streaktext"></p>
+    <h2 id="month" style="font-size:22px"></h2>
+    <div class="cal" id="cal"></div>
+    <h2 style="font-size:22px">Лестница семьи</h2>
+    <p class="hint">Фраза в книгу: +10 XP. Верный ответ на допросе: +15 XP.</p>
+    <ul class="ladder" id="ladder"></ul>
+  </section>
+</main>
+<script>
+try{const tg=window.Telegram&&Telegram.WebApp;if(tg){tg.ready();tg.expand()}}catch(e){}
+const KEY="english-firm-phrases";
+const seed=[
+  {en:"Bob's your uncle",ru:"и дело в шляпе"},
+  {en:"I'm having a laugh",ru:"я прикалываюсь"},
+  {en:"Fancy a cuppa?",ru:"не хочешь чашечку чая?"}
+];
+let phrases=[];
+try{const s=localStorage.getItem(KEY);phrases=s?JSON.parse(s):seed}catch(e){phrases=seed}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(phrases))}catch(e){}}
+const $=id=>document.getElementById(id);
+const norm=s=>s.toLowerCase().replace(/ё/g,"е").replace(/[.,!?;:"']/g,"").replace(/\s+/g," ").trim();
+
+function renderList(){
+  const ul=$("list");ul.textContent="";
+  if(!phrases.length){const li=document.createElement("li");li.textContent="Книга пуста. Запиши первую фразу выше.";ul.appendChild(li);return}
+  phrases.forEach((p,i)=>{
+    const li=document.createElement("li"),d=document.createElement("div"),b=document.createElement("b"),s=document.createElement("span"),x=document.createElement("button");
+    b.textContent=p.en;s.textContent=p.ru;d.append(b,s);
+    x.textContent="Вычеркнуть";x.onclick=()=>{phrases.splice(i,1);save();renderList()};
+    li.append(d,x);ul.appendChild(li);
+  });
+}
+$("add").onclick=()=>{
+  const en=$("en").value.trim(),ru=$("ru").value.trim();
+  if(!en||!ru){$("en").focus();return}
+  phrases.unshift({en,ru});save();gain(10);$("en").value="";$("ru").value="";renderList();$("en").focus();
+};
+
+let cur=null,streak=0,answered=false;
+function nextQ(){
+  $("verdict").textContent="";$("ans").value="";answered=false;
+  if(!phrases.length){$("q").textContent="Сначала запиши фразы";cur=null;return}
+  let p;do{p=phrases[Math.floor(Math.random()*phrases.length)]}while(phrases.length>1&&p===cur);
+  cur=p;$("q").textContent=p.en;$("ans").focus();
+}
+$("check").onclick=()=>{
+  if(!cur||answered)return;
+  const v=$("verdict");answered=true;
+  if(norm($("ans").value)===norm(cur.ru)){streak++;gain(15);v.className="verdict ok";v.textContent="Верно. +15 XP."}
+  else{streak=0;v.className="verdict no";v.textContent="Мимо. Правильно: "+cur.ru}
+  $("streak").textContent="Серия: "+streak;
+};
+$("ans").addEventListener("keydown",e=>{if(e.key==="Enter")answered?nextQ():$("check").click()});
+$("next").onclick=nextQ;
+
+function tab(which){
+  ["ledger","quiz","dossier"].forEach(n=>{
+    $(n).hidden=n!==which;
+    $("t-"+n).setAttribute("aria-selected",n===which);
+  });
+  if(which==="quiz")nextQ();
+  if(which==="dossier")renderDossier();
+}
+$("t-ledger").onclick=()=>tab("ledger");$("t-quiz").onclick=()=>tab("quiz");$("t-dossier").onclick=()=>tab("dossier");
+const XKEY="english-firm-xp";
+const ranks=[{n:"Шестёрка",x:0},{n:"Свой человек",x:100},{n:"Солдат",x:250},{n:"Капореджиме",x:500},{n:"Консильери",x:900},{n:"Андербосс",x:1400},{n:"Дон",x:2000}];
+let st={xp:0,days:[]};
+try{const s=localStorage.getItem(XKEY);if(s)st=JSON.parse(s)}catch(e){}
+const pad=n=>String(n).padStart(2,"0");
+const key=d=>d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
+const rankOf=xp=>ranks.reduce((a,r,k)=>xp>=r.x?k:a,0);
+
+function gain(n){
+  const before=rankOf(st.xp);
+  st.xp+=n;
+  const t=key(new Date());
+  if(!st.days.includes(t))st.days.push(t);
+  try{localStorage.setItem(XKEY,JSON.stringify(st))}catch(e){}
+  renderXP();
+  const after=rankOf(st.xp);
+  if(after>before)$("levelup").textContent="Повышение! Теперь ты: "+ranks[after].n;
+}
+function renderXP(){
+  const i=rankOf(st.xp),r=ranks[i],nx=ranks[i+1];
+  $("rank").textContent=r.n;
+  if(nx){
+    $("xptext").textContent=st.xp+" из "+nx.x+" XP до ранга «"+nx.n+"»";
+    $("fill").style.width=Math.round((st.xp-r.x)/(nx.x-r.x)*100)+"%";
+  }else{
+    $("xptext").textContent=st.xp+" XP, высший ранг";
+    $("fill").style.width="100%";
+  }
+}
+function streakDays(){
+  const set=new Set(st.days);let d=new Date(),n=0;
+  if(!set.has(key(d)))d.setDate(d.getDate()-1);
+  while(set.has(key(d))){n++;d.setDate(d.getDate()-1)}
+  return n;
+}
+function renderDossier(){
+  const now=new Date(),y=now.getFullYear(),m=now.getMonth();
+  const s=streakDays();
+  $("streaktext").textContent=s?("Дней подряд в деле: "+s):"Сегодня ещё не занимался. Запиши фразу или пройди допрос.";
+  $("month").textContent=now.toLocaleDateString("ru",{month:"long",year:"numeric"});
+  const cal=$("cal");cal.textContent="";
+  ["Пн","Вт","Ср","Чт","Пт","Сб","Вс"].forEach(w=>{const c=document.createElement("div");c.className="wd";c.textContent=w;cal.appendChild(c)});
+  const first=(new Date(y,m,1).getDay()+6)%7,days=new Date(y,m+1,0).getDate();
+  for(let k=0;k<first;k++)cal.appendChild(document.createElement("div")).style.border="0";
+  for(let d=1;d<=days;d++){
+    const c=document.createElement("div");c.textContent=d;
+    if(st.days.includes(y+"-"+pad(m+1)+"-"+pad(d)))c.className="on";
+    if(d===now.getDate())c.classList.add("now");
+    cal.appendChild(c);
+  }
+  const cur=rankOf(st.xp),ul=$("ladder");ul.textContent="";
+  ranks.forEach((r,k)=>{
+    const li=document.createElement("li"),b=document.createElement("b"),sp=document.createElement("span");
+    b.textContent=r.n;sp.textContent=r.x+" XP";
+    li.append(b,sp);
+    if(k===cur)li.className="cur";else if(k>cur)li.className="lock";
+    ul.appendChild(li);
+  });
+}
+renderXP();
+renderList();
+</script>
+</body>
+</html>
