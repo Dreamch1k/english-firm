@@ -18,13 +18,33 @@ main{max-width:720px;margin:0 auto;padding:0 16px 48px}
 .card h1{font:900 clamp(38px,11vw,68px)/.95 "Playfair Display",Georgia,serif;margin:0;letter-spacing:-.01em}
 .card p{margin:14px 0 0;color:var(--brassOnGreen);font-size:16px}
 .tweed{height:22px;margin:0;background:conic-gradient(#12291f 25%,#d2ad55 0 50%,#12291f 0 75%,#efe6d2 0) 0 0/22px 22px;border:3px solid var(--brassOnGreen);border-top:0}
-nav{display:flex;gap:0;margin:26px 0 20px;border:2px solid var(--line)}
-nav button{flex:1;font:inherit;padding:12px 8px;background:transparent;color:var(--ink);border:0;cursor:pointer}
-nav button+button{border-left:2px solid var(--line)}
-nav button[aria-selected="true"]{background:var(--green);color:var(--brassOnGreen)}
-:root[data-theme="dark"] nav button[aria-selected="true"]{background:var(--brass);color:#12291f}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) nav button[aria-selected="true"]{background:var(--brass);color:#12291f}}
+nav.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px;margin:26px 0 20px}
+nav.tiles button{font:inherit;font-size:13px;padding:14px 6px 10px;background:var(--panel);color:var(--ink);border:2px solid var(--line);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;transition:transform .15s ease,background .2s ease,box-shadow .2s ease}
+nav.tiles button i{font-style:normal;font-size:22px;line-height:1}
+nav.tiles button:hover{transform:translateY(-2px)}
+nav.tiles button:active{transform:scale(.94)}
+nav.tiles button[aria-selected="true"]{background:var(--green);color:var(--brassOnGreen);box-shadow:0 3px 0 0 var(--brassOnGreen)}
+:root[data-theme="dark"] nav.tiles button[aria-selected="true"]{background:var(--brass);color:#12291f;box-shadow:0 3px 0 0 #12291f}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) nav.tiles button[aria-selected="true"]{background:var(--brass);color:#12291f;box-shadow:0 3px 0 0 #12291f}}
 button:focus-visible,input:focus-visible{outline:3px solid var(--blood);outline-offset:2px}
+.btn{transition:transform .12s ease}
+.btn:active{transform:scale(.96)}
+@keyframes riseIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+section:not([hidden]).enter{animation:riseIn .35s ease}
+@keyframes flashOk{0%{background:var(--brass);color:#12291f}100%{background:transparent;color:inherit}}
+@keyframes flashNo{0%,20%,40%{transform:translateX(0)}10%,30%{transform:translateX(-4px)}}
+.row .btn.alt.is-ok{animation:flashOk .6s ease}
+.row .btn.alt.is-no{animation:flashNo .4s ease}
+@keyframes shimmer{0%{background-position:0 0}100%{background-position:40px 0}}
+.bar i{background-image:repeating-linear-gradient(45deg,var(--brass) 0 10px,#c9963f 10px 20px);background-size:40px 100%}
+.bar.pulse i{animation:shimmer 1s linear}
+@keyframes calPop{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+.cal .on{animation:calPop .3s ease backwards}
+.flare{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:50;opacity:0;animation:flareShow 1.3s ease forwards}
+.flare span{font:900 italic 30px "Playfair Display",Georgia,serif;color:var(--brassOnGreen);background:var(--green);border:3px solid var(--brassOnGreen);padding:16px 26px;transform:scale(.7)}
+@keyframes flareShow{0%{opacity:0}15%{opacity:1}15%{}20%{transform:none}85%{opacity:1}100%{opacity:0}}
+.flare span{animation:flareSpan .5s cubic-bezier(.2,1.6,.4,1)}
+@keyframes flareSpan{from{transform:scale(.4) rotate(-4deg)}to{transform:scale(1) rotate(0)}}
 h2{font:900 italic 30px/1.1 "Playfair Display",Georgia,serif;margin:0 0 6px}
 .hint{margin:0 0 18px;opacity:.85}
 .row{display:grid;gap:10px;margin-bottom:26px}
@@ -62,6 +82,21 @@ li button{font:inherit;background:none;border:0;color:var(--blood);cursor:pointe
 .ladder li.cur{background:var(--panel)}
 .ladder li.cur b::after{content:" (ты здесь)";font:400 15px "Special Elite","Courier New",monospace;color:var(--blood)}
 .ladder li.lock{opacity:.55}
+nav{flex-wrap:wrap}
+nav button{flex:1 1 auto;min-width:88px}
+.paper{background:var(--panel);border:1px solid var(--line);padding:4px 0}
+.paper-head{text-align:center;padding:14px 10px 10px;border-bottom:3px double var(--line)}
+.paper-head b{font:900 26px "Playfair Display",Georgia,serif;letter-spacing:.03em}
+.paper-head span{display:block;font-size:12px;letter-spacing:.15em;opacity:.75;margin-top:2px}
+.clip{padding:14px 16px;border-bottom:1px solid var(--line)}
+.clip:last-child{border-bottom:0}
+.kicker{font-size:11px;letter-spacing:.12em;opacity:.7;display:flex;justify-content:space-between}
+.headline{font:900 20px/1.2 "Playfair Display",Georgia,serif;margin:4px 0 4px}
+.dek{margin:0;opacity:.9}
+.empty-clip{padding:20px 16px;text-align:center;opacity:.75}
+.lesson-list{padding-left:20px;margin:0 0 20px}
+.lesson-list li{margin-bottom:12px}
+.lesson-list i{opacity:.8}
 </style>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
@@ -79,10 +114,14 @@ li button{font:inherit;background:none;border:0;color:var(--blood);cursor:pointe
     <p class="levelup" id="levelup" aria-live="polite"></p>
   </div>
 
-  <nav role="tablist">
-    <button role="tab" id="t-ledger" aria-selected="true">Книга фраз</button>
-    <button role="tab" id="t-quiz" aria-selected="false">Допрос</button>
-    <button role="tab" id="t-dossier" aria-selected="false">Досье</button>
+  <nav role="tablist" class="tiles">
+    <button role="tab" id="t-ledger" aria-selected="true"><i>📖</i>Книга фраз</button>
+    <button role="tab" id="t-quiz" aria-selected="false"><i>🎯</i>Допрос</button>
+    <button role="tab" id="t-words" aria-selected="false"><i>🆕</i>Слова</button>
+    <button role="tab" id="t-phrasesL" aria-selected="false"><i>💬</i>Фразы</button>
+    <button role="tab" id="t-excerpt" aria-selected="false"><i>📜</i>Отрывок</button>
+    <button role="tab" id="t-dossier" aria-selected="false"><i>🗂</i>Досье</button>
+    <button role="tab" id="t-news" aria-selected="false"><i>📰</i>Хроника</button>
   </nav>
 
   <section id="ledger">
@@ -107,6 +146,21 @@ li button{font:inherit;background:none;border:0;color:var(--blood);cursor:pointe
     </div>
     <p class="verdict" id="verdict" aria-live="polite"></p>
   </section>
+  <section id="words" hidden>
+    <h2>Слова</h2>
+    <div id="words-body"></div>
+  </section>
+
+  <section id="phrasesL" hidden>
+    <h2>Ходовые фразы</h2>
+    <div id="phrasesL-body"></div>
+  </section>
+
+  <section id="excerpt" hidden>
+    <h2>Отрывок</h2>
+    <div id="excerpt-body"></div>
+  </section>
+
   <section id="dossier" hidden>
     <h2>Досье</h2>
     <p class="hint" id="streaktext"></p>
@@ -116,15 +170,35 @@ li button{font:inherit;background:none;border:0;color:var(--blood);cursor:pointe
     <p class="hint">Фраза в книгу: +10 XP. Верный ответ на допросе: +15 XP.</p>
     <ul class="ladder" id="ladder"></ul>
   </section>
+
+  <section id="news" hidden>
+    <h2>Хроника</h2>
+    <p class="hint">Заметки о твоих делах в Фирме, по свежим следам.</p>
+    <div class="paper">
+      <div class="paper-head"><b>THE FIRM GAZETTE</b><span id="news-date"></span></div>
+      <div id="news-feed"></div>
+    </div>
+  </section>
 </main>
 <script>
-try{const tg=window.Telegram&&Telegram.WebApp;if(tg){tg.ready();tg.expand()}}catch(e){}
 const KEY="english-firm-phrases";
 const seed=[
   {en:"Bob's your uncle",ru:"и дело в шляпе"},
   {en:"I'm having a laugh",ru:"я прикалываюсь"},
   {en:"Fancy a cuppa?",ru:"не хочешь чашечку чая?"}
 ];
+try{const tg=window.Telegram&&Telegram.WebApp;if(tg){tg.ready();tg.expand()}}catch(e){}
+const EKEY="english-firm-events";
+let events=[];
+try{const e=localStorage.getItem(EKEY);events=e?JSON.parse(e):[]}catch(e){events=[]}
+function logEvent(type,en,ru){
+  events.unshift({type,en,ru,ts:Date.now()});
+  events=events.slice(0,60);
+  try{localStorage.setItem(EKEY,JSON.stringify(events))}catch(e){}
+}
+const LWORDS=[["achieve", "достигать", "She worked hard to achieve her goal."], ["afford", "позволить себе (деньги)", "I can't afford a new car."], ["avoid", "избегать", "Try to avoid the traffic."], ["borrow", "занимать, брать взаймы", "Can I borrow your pen?"], ["deal", "сделка; иметь дело", "We made a deal."], ["enough", "достаточно", "That's enough for today."], ["expect", "ожидать", "I didn't expect to see you here."], ["fair", "справедливый", "That's not fair."], ["guess", "догадываться", "I guess you're right."], ["handle", "справляться, обращаться", "I can handle it."], ["improve", "улучшать", "I want to improve my English."], ["trust", "доверять; доверие", "I trust him."], ["suggest", "предлагать", "I suggest we leave now."], ["realize", "осознавать", "I realized I was wrong."], ["prefer", "предпочитать", "I prefer tea to coffee."], ["manage", "справляться, управлять", "She managed to finish on time."], ["mention", "упоминать", "Don't mention it."], ["notice", "замечать", "Did you notice his hat?"], ["pretend", "притворяться", "Stop pretending you don't know."], ["promise", "обещать; обещание", "I promise I'll call you."], ["recognize", "узнавать", "I didn't recognize you."], ["regret", "сожалеть", "I regret nothing."], ["rely", "полагаться", "You can rely on me."], ["refuse", "отказываться", "He refused to answer."], ["reveal", "раскрывать", "He revealed the secret."], ["share", "делиться", "Let's share the bill."], ["suppose", "полагать, допускать", "I suppose so."], ["threaten", "угрожать", "He threatened to leave."], ["warn", "предупреждать", "I warned you."], ["wonder", "интересоваться, удивляться", "I wonder where he is."], ["afraid", "испуганный", "Don't be afraid."], ["angry", "злой", "He was angry with me."], ["brave", "храбрый", "She is a brave woman."], ["clever", "умный, хитрый", "That was a clever move."], ["dangerous", "опасный", "It's too dangerous."], ["honest", "честный", "Be honest with me."], ["lucky", "удачливый", "You're a lucky man."], ["rude", "грубый", "Don't be rude."], ["sharp", "острый; стильный", "He wears a sharp suit."], ["tough", "жёсткий, трудный", "It's a tough job."], ["advice", "совет", "Thanks for the advice."], ["argument", "спор", "They had an argument."], ["boss", "босс, начальник", "The boss is angry."], ["chance", "шанс", "Give me a chance."], ["crime", "преступление", "He was arrested for a crime."], ["debt", "долг", "He is in debt."], ["enemy", "враг", "He made a lot of enemies."], ["favour", "услуга", "Can you do me a favour?"], ["mistake", "ошибка", "That was my mistake."], ["secret", "тайна", "Can you keep a secret?"], ["business", "бизнес, дело", "Mind your own business."], ["customer", "клиент", "The customer is always right."], ["decision", "решение", "It's a difficult decision."], ["experience", "опыт", "She has a lot of experience."], ["habit", "привычка", "Smoking is a bad habit."], ["journey", "поездка, путь", "It was a long journey."], ["knowledge", "знание", "Knowledge is power."], ["neighbour", "сосед", "My neighbour is noisy."], ["pleasure", "удовольствие", "It's a pleasure to meet you."], ["rumour", "слух", "It's just a rumour."], ["apologize", "извиняться", "I apologize for being late."], ["belong", "принадлежать", "This belongs to me."], ["cheat", "обманывать", "He cheated on the test."], ["depend", "зависеть", "It depends on you."], ["earn", "зарабатывать", "How much do you earn?"], ["fail", "терпеть неудачу", "I failed the exam."], ["forgive", "прощать", "I can't forgive him."], ["hide", "прятать(ся)", "Where did you hide it?"], ["insist", "настаивать", "I insist on paying."], ["steal", "красть", "Someone stole my wallet."], ["actually", "на самом деле", "Actually, I'm busy."], ["anyway", "в любом случае", "Anyway, let's go."], ["barely", "едва", "I barely slept."], ["besides", "кроме того", "Besides, it's free."], ["either", "тоже (в отрицании); любой из двух", "I don't like it either."], ["however", "однако", "However, I disagree."], ["maybe", "может быть", "Maybe tomorrow."], ["nearly", "почти", "I nearly forgot."], ["suddenly", "внезапно", "Suddenly, the lights went out."], ["whatever", "что угодно; как угодно", "Whatever you say."], ["appointment", "встреча по записи", "I have a doctor's appointment."], ["bill", "счёт", "Can we have the bill, please?"], ["cheap", "дешёвый", "It's cheap but good."], ["expensive", "дорогой", "This is too expensive."], ["invite", "приглашать", "I'll invite him to dinner."], ["lend", "одолжить (кому-то)", "Can you lend me some money?"], ["miss", "скучать; пропускать", "I miss you."], ["order", "заказывать; заказ", "I'd like to order."], ["receipt", "чек", "Keep the receipt."], ["tip", "чаевые; совет", "Leave a tip."], ["mate", "приятель (брит.)", "Cheers, mate."], ["bloke", "парень, мужик (брит.)", "He's a nice bloke."], ["fancy", "хотеть, нравиться (брит.)", "Do you fancy a drink?"], ["quid", "фунт стерлингов (сленг)", "It costs ten quid."], ["dodgy", "сомнительный, подозрительный", "That deal looks dodgy."], ["knackered", "вымотанный (брит.)", "I'm absolutely knackered."], ["gutted", "сильно расстроенный (брит.)", "He was gutted about the loss."], ["brilliant", "блестящий, отлично", "That's brilliant!"], ["cheeky", "нахальный, дерзкий", "Don't be cheeky."], ["rubbish", "ерунда, мусор", "That's rubbish."]];
+const LPHRASES=[["How's it going?", "как дела?"], ["What's up?", "что нового? как дела?"], ["Long time no see", "давно не виделись"], ["Take it easy", "не напрягайся, расслабься"], ["No worries", "не переживай, без проблем"], ["I'm on my way", "я уже в пути"], ["Make yourself at home", "чувствуй себя как дома"], ["It's on me", "плачу я"], ["Keep in touch", "оставайся на связи"], ["Let me know", "дай мне знать"], ["Break a leg", "ни пуха ни пера"], ["Piece of cake", "проще простого"], ["Under the weather", "нездоровится"], ["Once in a blue moon", "очень редко"], ["Spill the beans", "проболтаться"], ["Hit the sack", "пойти спать"], ["Cost an arm and a leg", "стоить целое состояние"], ["Let the cat out of the bag", "выдать секрет"], ["Bite the bullet", "стиснуть зубы и сделать"], ["The ball is in your court", "теперь твой ход"], ["Bob's your uncle", "и дело в шляпе"], ["Fancy a cuppa?", "хочешь чашечку чая?"], ["I'm having a laugh", "я прикалываюсь"], ["Bloody hell", "чёрт возьми"], ["Cheers", "спасибо; за здоровье"], ["You're taking the mickey", "ты надо мной издеваешься"], ["Mind the gap", "осторожно, зазор (метро)"], ["It's not my cup of tea", "это не моё"], ["Sod off", "отстань (грубо)"], ["Give me a bell", "позвони мне (брит.)"], ["Let's cut to the chase", "давай ближе к делу"], ["I'll get back to you", "я вам отвечу позже"], ["We're on the same page", "мы на одной волне"], ["That's a deal", "договорились"], ["Off the record", "неофициально"], ["Keep it under your hat", "держи это в секрете"], ["Pull some strings", "задействовать связи"], ["I owe you one", "я твой должник"], ["Call it a day", "закончить на сегодня"], ["Money talks", "деньги решают всё"], ["I couldn't care less", "мне совершенно всё равно"], ["It drives me crazy", "это сводит меня с ума"], ["I'm all ears", "я весь внимание"], ["You've got a point", "в этом что-то есть"], ["Fair enough", "справедливо, ладно"], ["It slipped my mind", "вылетело из головы"], ["I'm fed up", "я сыт по горло"], ["It's up to you", "решать тебе"], ["Don't get me wrong", "не пойми меня неправильно"], ["That rings a bell", "что-то припоминаю"]];
+const LEXCERPTS=[["Сцена: сделка (авторская)", "Listen, mate. I don't do favours, I do business. You want the job done? Then you pay up front, and we shake hands. No dodgy stuff.", "Слушай, приятель. Я не оказываю услуги, я веду дела. Хочешь, чтобы работа была сделана? Тогда платишь вперёд, и мы жмём друг другу руки. Никаких сомнительных схем.", [["favour", "услуга"], ["up front", "вперёд, заранее"], ["dodgy", "сомнительный"]]], ["Сцена: последний шанс (авторская)", "You've made a mistake. A big one. But I'm a fair man, so I'll give you one chance to put things right.", "Ты совершил ошибку. Большую. Но я справедливый человек, поэтому даю тебе один шанс всё исправить.", [["mistake", "ошибка"], ["fair", "справедливый"], ["put things right", "исправить положение"]]], ["Сцена: в пабе (авторская)", "Two pints, please. And keep the change. It's been a long day, and I'm absolutely knackered.", "Две пинты, пожалуйста. Сдачи не надо. Был долгий день, и я вымотан до предела.", [["pint", "пинта (пива)"], ["keep the change", "сдачи не надо"], ["knackered", "вымотанный"]]], ["Сцена: совет старика (авторская)", "Take some advice from an old man: trust nobody, pay your debts, and never let the boss see you sweat.", "Послушай совет старика: никому не доверяй, плати по долгам и никогда не показывай боссу, что нервничаешь.", [["advice", "совет"], ["debt", "долг"], ["see you sweat", "увидеть, что ты нервничаешь"]]], ["Сцена: тревожная ночь (авторская)", "I barely slept last night. There was a rumour going round that the boss was in trouble, and I couldn't stop wondering what would happen.", "Я почти не спал прошлой ночью. Ходил слух, что у босса неприятности, и я не мог перестать думать, что будет дальше.", [["barely", "едва"], ["rumour", "слух"], ["wonder", "гадать, интересоваться"]]], ["Сцена: опоздание (авторская)", "I apologize for being late. It was a tough journey and, to be honest, I nearly forgot about the meeting.", "Извиняюсь за опоздание. Дорога была тяжёлая, и, честно говоря, я чуть не забыл про встречу.", [["apologize", "извиняться"], ["journey", "поездка"], ["nearly", "почти"]]], ["Джейн Остин, «Гордость и предубеждение» (1813)", "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife.", "Всем известно, что холостой мужчина, обладающий хорошим состоянием, непременно нуждается в жене.", [["acknowledged", "признанный"], ["fortune", "состояние, богатство"], ["in want of", "нуждающийся в"]]], ["Чарльз Диккенс, «Повесть о двух городах» (1859)", "It was the best of times, it was the worst of times.", "Это было лучшее из времён, это было худшее из времён.", [["the best of times", "лучшее из времён"], ["the worst of times", "худшее из времён"]]], ["Артур Конан Дойл, «Скандал в Богемии» (1891)", "You see, but you do not observe.", "Вы смотрите, но не наблюдаете.", [["observe", "наблюдать, подмечать"]]], ["Артур Конан Дойл, «Знак четырёх» (1890)", "When you have eliminated the impossible, whatever remains, however improbable, must be the truth.", "Когда вы отбросили невозможное, то всё, что остаётся, каким бы невероятным оно ни было, и есть правда.", [["eliminate", "исключать"], ["improbable", "маловероятный"], ["remain", "оставаться"]]], ["Шекспир, «Гамлет» (около 1600)", "To be, or not to be, that is the question.", "Быть или не быть, вот в чём вопрос.", [["question", "вопрос"]]]];
 let phrases=[];
 try{const s=localStorage.getItem(KEY);phrases=s?JSON.parse(s):seed}catch(e){phrases=seed}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(phrases))}catch(e){}}
@@ -144,7 +218,7 @@ function renderList(){
 $("add").onclick=()=>{
   const en=$("en").value.trim(),ru=$("ru").value.trim();
   if(!en||!ru){$("en").focus();return}
-  phrases.unshift({en,ru});save();gain(10);$("en").value="";$("ru").value="";renderList();$("en").focus();
+  phrases.unshift({en,ru});save();gain(10);logEvent("add",en,ru);$("en").value="";$("ru").value="";renderList();$("en").focus();
 };
 
 let cur=null,streak=0,answered=false;
@@ -157,7 +231,7 @@ function nextQ(){
 $("check").onclick=()=>{
   if(!cur||answered)return;
   const v=$("verdict");answered=true;
-  if(norm($("ans").value)===norm(cur.ru)){streak++;gain(15);v.className="verdict ok";v.textContent="Верно. +15 XP."}
+  if(norm($("ans").value)===norm(cur.ru)){streak++;gain(15);logEvent("correct",cur.en,cur.ru);v.className="verdict ok";v.textContent="Верно. +15 XP."}
   else{streak=0;v.className="verdict no";v.textContent="Мимо. Правильно: "+cur.ru}
   $("streak").textContent="Серия: "+streak;
 };
@@ -165,14 +239,20 @@ $("ans").addEventListener("keydown",e=>{if(e.key==="Enter")answered?nextQ():$("c
 $("next").onclick=nextQ;
 
 function tab(which){
-  ["ledger","quiz","dossier"].forEach(n=>{
+  ["ledger","quiz","dossier","news","words","phrasesL","excerpt"].forEach(n=>{
     $(n).hidden=n!==which;
     $("t-"+n).setAttribute("aria-selected",n===which);
   });
+  const shown=$(which);shown.classList.remove("enter");void shown.offsetWidth;shown.classList.add("enter");
   if(which==="quiz")nextQ();
   if(which==="dossier")renderDossier();
+  if(which==="news")renderNews();
+  if(which==="words")renderWordsTab();
+  if(which==="phrasesL")renderPhrasesTab();
+  if(which==="excerpt")renderExcerptTab();
 }
-$("t-ledger").onclick=()=>tab("ledger");$("t-quiz").onclick=()=>tab("quiz");$("t-dossier").onclick=()=>tab("dossier");
+$("t-ledger").onclick=()=>tab("ledger");$("t-quiz").onclick=()=>tab("quiz");$("t-dossier").onclick=()=>tab("dossier");$("t-news").onclick=()=>tab("news");
+$("t-words").onclick=()=>tab("words");$("t-phrasesL").onclick=()=>tab("phrasesL");$("t-excerpt").onclick=()=>tab("excerpt");
 const XKEY="english-firm-xp";
 const ranks=[{n:"Шестёрка",x:0},{n:"Свой человек",x:100},{n:"Солдат",x:250},{n:"Капореджиме",x:500},{n:"Консильери",x:900},{n:"Андербосс",x:1400},{n:"Дон",x:2000}];
 let st={xp:0,days:[]};
@@ -189,7 +269,14 @@ function gain(n){
   try{localStorage.setItem(XKEY,JSON.stringify(st))}catch(e){}
   renderXP();
   const after=rankOf(st.xp);
-  if(after>before)$("levelup").textContent="Повышение! Теперь ты: "+ranks[after].n;
+  $("fill").parentElement.classList.remove("pulse");void $("fill").offsetWidth;$("fill").parentElement.classList.add("pulse");
+  if(after>before){
+    $("levelup").textContent="Повышение! Теперь ты: "+ranks[after].n;logEvent("levelup",ranks[after].n,"");
+    const f=document.createElement("div");f.className="flare";
+    f.innerHTML=`<span>🎩 ${esc(ranks[after].n)}</span>`;
+    document.body.appendChild(f);
+    setTimeout(()=>f.remove(),1300);
+  }
 }
 function renderXP(){
   const i=rankOf(st.xp),r=ranks[i],nx=ranks[i+1];
@@ -232,8 +319,150 @@ function renderDossier(){
     ul.appendChild(li);
   });
 }
+const HEAD={
+  add:{icon:"🗒️",h:"НОВАЯ ЗАПИСЬ В КНИГЕ ФРАЗ"},
+  correct:{icon:"🎯",h:"ДОПРОС ПРОЙДЕН УСПЕШНО"},
+  levelup:{icon:"🎩",h:"ПОВЫШЕНИЕ В ЧИНЕ"}
+};
+function renderNews(){
+  $("news-date").textContent=new Date().toLocaleDateString("ru",{day:"numeric",month:"long",year:"numeric"}).toUpperCase();
+  const feed=$("news-feed");feed.textContent="";
+  if(!events.length){
+    const d=document.createElement("div");d.className="empty-clip";
+    d.textContent="Номер пуст. Запиши фразу или пройди допрос, и здесь появится заметка.";
+    feed.appendChild(d);return;
+  }
+  events.forEach(e=>{
+    const meta=HEAD[e.type]||{icon:"📰",h:"СОБЫТИЕ"};
+    const art=document.createElement("article");art.className="clip";
+    const kicker=document.createElement("div");kicker.className="kicker";
+    const time=new Date(e.ts).toLocaleString("ru",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"});
+    kicker.innerHTML=`<span>ФИРМА СООБЩАЕТ</span><span>${time}</span>`;
+    const h=document.createElement("h3");h.className="headline";h.textContent=meta.icon+" "+meta.h;
+    const dek=document.createElement("p");dek.className="dek";
+    dek.textContent=e.type==="levelup"?("Новый ранг: "+e.en):(e.en+(e.ru?" — "+e.ru:""));
+    art.append(kicker,h,dek);feed.appendChild(art);
+  });
+}
 renderXP();
 renderList();
+
+// ---------- уроки: слова, фразы, отрывки ----------
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+const PKEY="english-firm-progress";
+function loadProg(){try{const s=localStorage.getItem(PKEY);return s?JSON.parse(s):{words:0,phrases:0,excerpt:0}}catch(e){return {words:0,phrases:0,excerpt:0}}}
+function saveProg(p){try{localStorage.setItem(PKEY,JSON.stringify(p))}catch(e){}}
+
+let lesson=null;
+function poolFor(kind){
+  if(kind==="words")return LWORDS.map(w=>w[1]);
+  if(kind==="phrasesL")return LPHRASES.map(p=>p[1]);
+  return LEXCERPTS.flatMap(e=>e[3].map(v=>v[1]));
+}
+function labelFor(kind){return kind==="words"?"Слово":kind==="phrasesL"?"Фраза":"Слово из отрывка"}
+
+function startLessonQuiz(kind,items,container){
+  lesson={kind,items,pos:0,correct:0,container};
+  renderLessonQuestion("");
+}
+function renderLessonQuestion(prefixHtml){
+  const {kind,items,pos}=lesson;
+  const el=$(lesson.container);
+  if(pos>=items.length){finishLesson();return}
+  const [term,correct]=items[pos];
+  const pool=shuffle(poolFor(kind).filter(t=>t!==correct));
+  const options=shuffle([...pool.slice(0,3),correct]);
+  el.innerHTML="";
+  if(prefixHtml){const p=document.createElement("p");p.className="verdict";p.innerHTML=prefixHtml;el.appendChild(p)}
+  const slate=document.createElement("div");slate.className="slate";
+  slate.innerHTML=`<small>${labelFor(kind)} ${pos+1}/${items.length}</small><div class="q">${esc(term)}</div>`;
+  el.appendChild(slate);
+  const row=document.createElement("div");row.className="row";
+  const btns=[];
+  options.forEach(opt=>{
+    const b=document.createElement("button");b.className="btn alt";b.textContent=opt;
+    b.onclick=()=>{
+      btns.forEach(x=>x.disabled=true);
+      b.classList.add(opt===correct?"is-ok":"is-no");
+      if(opt!==correct){const okBtn=btns.find(x=>x.textContent===correct);if(okBtn)okBtn.classList.add("is-ok")}
+      setTimeout(()=>answerLesson(opt===correct,term,correct),480);
+    };
+    btns.push(b);row.appendChild(b);
+  });
+  el.appendChild(row);
+  const back=document.createElement("button");back.className="btn";back.textContent="🚪 Прервать";
+  back.onclick=()=>{lesson=null;tab(kind)};
+  el.appendChild(back);
+}
+function answerLesson(ok,term,correct){
+  if(ok)lesson.correct++;
+  lesson.pos++;
+  const v=ok?`✅ Верно. <b>${esc(term)}</b> = ${esc(correct)}`:`❌ Мимо. <b>${esc(term)}</b> = ${esc(correct)}`;
+  renderLessonQuestion(v);
+}
+function finishLesson(){
+  const {kind,items,correct,container}=lesson;
+  const prog=loadProg();
+  if(kind==="excerpt"){prog.excerpt=(prog.excerpt+1)%LEXCERPTS.length}
+  else{const key=kind==="words"?"words":"phrases";const size=kind==="words"?LWORDS.length:LPHRASES.length;prog[key]=(prog[key]+items.length)%size}
+  saveProg(prog);
+  const xp=correct*5+(correct===items.length?10:0);
+  gain(xp);
+  logEvent(kind==="words"?"lwords":kind==="phrasesL"?"lphrases":"lexcerpt",correct+" из "+items.length,"");
+  const el=$(container);
+  el.innerHTML=`<div class="slate"><div class="q">Готово: ${correct} из ${items.length}</div><small>+${xp} XP${correct===items.length?" · всё верно":""}</small></div>`;
+  const btn=document.createElement("button");btn.className="btn";btn.textContent="↩️ Ещё раз";
+  btn.onclick=()=>{if(kind==="words")renderWordsTab();else if(kind==="phrasesL")renderPhrasesTab();else renderExcerptTab()};
+  el.appendChild(btn);
+  lesson=null;
+}
+
+function renderWordsTab(){
+  const prog=loadProg(),idx=prog.words;
+  const batch=[];for(let i=0;i<10;i++)batch.push(LWORDS[(idx+i)%LWORDS.length]);
+  const el=$("words-body");el.innerHTML="";
+  const hint=document.createElement("p");hint.className="hint";hint.textContent="Новая десятка слов. Выучи и проверь себя.";el.appendChild(hint);
+  const ol=document.createElement("ol");ol.className="lesson-list";
+  batch.forEach(w=>{const li=document.createElement("li");li.innerHTML=`<b>${esc(w[0])}</b> — ${esc(w[1])}<br><i>${esc(w[2])}</i>`;ol.appendChild(li)});
+  el.appendChild(ol);
+  const btn=document.createElement("button");btn.className="btn";btn.textContent="🎯 Проверить";
+  btn.onclick=()=>startLessonQuiz("words",batch.map(w=>[w[0],w[1]]),"words-body");
+  el.appendChild(btn);
+}
+function renderPhrasesTab(){
+  const prog=loadProg(),idx=prog.phrases;
+  const batch=[];for(let i=0;i<10;i++)batch.push(LPHRASES[(idx+i)%LPHRASES.length]);
+  const el=$("phrasesL-body");el.innerHTML="";
+  const hint=document.createElement("p");hint.className="hint";hint.textContent="Десять ходовых фраз и идиом. Выучи и проверь себя.";el.appendChild(hint);
+  const ol=document.createElement("ol");ol.className="lesson-list";
+  batch.forEach(p=>{const li=document.createElement("li");li.innerHTML=`<b>${esc(p[0])}</b> — ${esc(p[1])}`;ol.appendChild(li)});
+  el.appendChild(ol);
+  const btn=document.createElement("button");btn.className="btn";btn.textContent="🎯 Проверить";
+  btn.onclick=()=>startLessonQuiz("phrasesL",batch,"phrasesL-body");
+  el.appendChild(btn);
+}
+function renderExcerptTab(){
+  const prog=loadProg(),idx=prog.excerpt%LEXCERPTS.length;
+  const [source,en,ru,vocab]=LEXCERPTS[idx];
+  const el=$("excerpt-body");el.innerHTML="";
+  const src=document.createElement("p");src.innerHTML=`<i>${esc(source)}</i>`;src.style.opacity=".85";el.appendChild(src);
+  const txt=document.createElement("p");txt.innerHTML=`<b>${esc(en)}</b>`;el.appendChild(txt);
+  const tr=document.createElement("p");tr.innerHTML=`<i>${esc(ru)}</i>`;tr.style.opacity=".9";el.appendChild(tr);
+  const vh=document.createElement("p");vh.innerHTML="🔑 <b>Ключевые слова:</b>";el.appendChild(vh);
+  const ul=document.createElement("ul");ul.style.paddingLeft="20px";ul.style.listStyle="disc";
+  vocab.forEach(v=>{const li=document.createElement("li");li.innerHTML=`<b>${esc(v[0])}</b> — ${esc(v[1])}`;ul.appendChild(li)});
+  el.appendChild(ul);
+  const btn=document.createElement("button");btn.className="btn";btn.textContent="🎯 Проверить слова";
+  btn.onclick=()=>startLessonQuiz("excerpt",vocab,"excerpt-body");
+  el.appendChild(btn);
+  const nextBtn=document.createElement("button");nextBtn.className="btn alt";nextBtn.textContent="➡️ Следующий отрывок";
+  nextBtn.onclick=()=>{const p=loadProg();p.excerpt=(p.excerpt+1)%LEXCERPTS.length;saveProg(p);renderExcerptTab()};
+  el.appendChild(nextBtn);
+}
+HEAD.lwords={icon:"🆕",h:"ДЕСЯТКА СЛОВ ОСВОЕНА"};
+HEAD.lphrases={icon:"💬",h:"ДЕСЯТКА ФРАЗ ОСВОЕНА"};
+HEAD.lexcerpt={icon:"📜",h:"ОТРЫВОК РАЗОБРАН"};
 </script>
 </body>
 </html>
